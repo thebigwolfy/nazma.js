@@ -56,6 +56,17 @@ nazma.formatColor(color); // color = le nom de la couleur avec un #
 // sortie en nombre
 ```
 
+### Fonction `mentionUser()`
+
+```js
+const nazma = require('nazma.js');
+
+let user = message.author;
+nazma.mentionUser(user.id);
+
+// example de sortie : "<@000000000000000>" les 0 corresponds a un id
+```
+
 ### Fonction `randomNumber()`
 
 ```js

@@ -144,11 +144,13 @@ module.exports.Embed = class {
 	
 };
 
+// Fontion formatColor *sortie d'une couleur*
+
 function formatColor(color) {
 	
     if(typeof color === 'string' && color.startsWith("#")) {
 		
-        const rawHex = color.split('#')[1];
+        let rawHex = color.split('#')[1];
 
         return parseInt(rawHex, 16);
 		
@@ -174,6 +176,14 @@ function randomNumber(max) {
 		
 	return Math.floor(Math.random() * Math.floor(max));
 
+};
+
+// Fontion test *voir si le package répond bien correctment*
+
+function mentionUser(userId) {
+	
+	return ("<@" + userId+ + ">");
+	
 };
 
 // Fontion test *voir si le package répond bien correctment*
