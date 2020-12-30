@@ -1,0 +1,17 @@
+{
+
+  "name": "nazma.js",
+  
+  "version": "0.0.15",
+  
+  "main": "index.js",
+  
+  "author": "thebigwolfy",
+  
+  "description": "Un package pour une facilité de codage importante, inclue plusieurs fonctions utiles !",
+  
+  "keywords": [ "discord", "discordapp", "function", "nazma", "fonction", "thebigwolfy" ],
+  
+  "license": "MIT"
+  
+}
