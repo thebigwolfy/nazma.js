@@ -148,20 +148,15 @@ module.exports.Embed = class {
 
 function formatColor(color) {
 	
-    if(typeof color === 'string' && color.startsWith("#")) {
+    // Using Regular Expressions to test the given value and check if it is a valid hex color representation
+    if((/^#([0-9A-F]{3}){1,2}$/i).test(color)) {
 		
-        let rawHex = color.split('#')[1];
-
+        let rawHex = color.substring(1); // Gets rid of the first character (in this case, it will remove the #)
         return parseInt(rawHex, 16);
 		
-    } else {
-		
-		if(isNaN(color)) return console.log("[NazmaPackage - Err] Veuillez inclure une couleur correcte !");
+    } else 
+	    return console.log("[NazmaPackage - Err] The given color isn't a valid hexadecimal color representation.")
 			
-		return Number(color);
-		
-	};
-	
 };
 
 // Fontion randomNumber *nombre aléatoire*
@@ -182,7 +177,7 @@ function randomNumber(max) {
 
 function mentionUser(userId) {
 	
-	return ("<@" + userId+ + ">");
+	return ("<@" + userId + ">");
 	
 };
 
