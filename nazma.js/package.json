@@ -1,0 +1,25 @@
+{
+
+	"name": "nazma.js",
+	  
+	"version": "0.0.23",
+	  
+	"main": "index.js",
+	  
+	"author": "thebigwolfy",
+	  
+	"description": "A package for great coding ease includes several useful features!",
+	  
+	"devDependencies": {
+		
+		"discord.js": "^12.5.1",
+		
+		"https": "^1.0.0"
+		
+	},
+	  
+	"keywords": [ "discord", "discordapp", "function", "nazma", "nazma.js", "fonction", "thebigwolfy", "network" ],
+	  
+	"license": "MIT"
+  
+}
