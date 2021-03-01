@@ -1,0 +1,35 @@
+{
+
+	"name": "nazma.js",
+	  
+	"version": "0.1.24",
+	  
+	"main": "index.js",
+	  
+	"author": "thebigwolfy",
+	  
+	"description": "A package for great coding ease includes several useful features!",
+	  
+	"dependencies": {
+		
+		"discord.js": "^12.5.1",
+		
+		"mysql": "^2.18.1",
+		
+		"deepmerge": "^4.2.2",
+		
+		"https": "^1.0.0"
+		
+	},
+	  
+	"keywords": [ "discord", "discord-giveaways", "discord giveaway", "discord giveaways", "giveaways", "giveaway", "winner", "discordapp", "function", "functions", "nazma", "nazmabot", "nazma.js", "fonction", "optimisation", "fonctions", "thebigwolfy", "network" ],
+	  
+	"license": "MIT",
+	
+	"bugs": {
+	
+		"url": "https://github.com/thebigwolfy/nazma/issues"
+	
+	}
+  
+}
