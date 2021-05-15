@@ -8,6 +8,12 @@ module.exports = {
 	
 	textFormat,
 	
+	replace,
+	
+	replaceAll,
+	
+	replaceMention,
+	
 	percentageNumber,
 	
 	reducNumber
@@ -18,9 +24,31 @@ module.exports = {
 
 function textFormat(text) {
 	
-	if(!text) throw new Error("NazmaJS - Veuillez indiquer un texte !");
-	
 	return String("`" + text + "`");
+	
+}
+
+function replace(textReplace, text) {
+	
+	if(textReplace && text) text = text.replace(String(textReplace), "");
+	
+	return String(text);
+	
+}
+
+function replaceAll(textReplace, text) {
+	
+	if(textReplace && text) text = text.replace(/${textReplace}/gi, "");
+	
+	return String(text);
+	
+}
+
+function replaceMention(text) {
+
+	if(text) text = text.replace(/@everyone/gi, "everyone").replace(/@here/gi, "here");
+	
+	return String(text);
 	
 }
 
@@ -48,21 +76,35 @@ function percentageNumber(number, numberTotal, fixed = 0) {
 
 function reducNumber(number) {
 
-	if(checkNumber(number) !== undefined) throw new Error(checkNumber(number));
+	if(checkNumber(number) !== undefined) {
+		
+		console.log(checkNumber(number));
+		
+		return undefined;
+		
+	}
 	
-	if(number.includes("-")) throw new Error("NazmaJS - Veuillez inclure un nombre entier !");
+	number = String(number);
+	
+	if(number.includes("-")) {
+		
+		console.log("NazmaJS - Veuillez inclure un nombre entier !");
+		
+		return undefined;
+		
+	}
 	
 	let result = number;
 	
-	if(number.length > 6) {
+	if(number.length > 9) {
 		
-		result = String(result.substr(3, 6) + "m");
+		result = String(result.substr(0, 9) + "md");
 		
-	} else if(number.length > 3) {
+	} else if(number.length > 6) {
 		
-		result = String(result.substr(0, 3) + "k");
+		result = String(result.substr(0, 6) + "m");
 		
-	}
+	} else if(number.length > 3) result = String(result.substr(0, 3) + "k");
 	
 	return String(result);
 

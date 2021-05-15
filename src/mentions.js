@@ -46,7 +46,7 @@ function mentionTextUser(userId, text) {
 	
 	if(checkNumber(userId) !== undefined) throw new Error(checkNumber(userId));
 	
-	if(!text || typeof text !== "string") throw new Error("NazmaJS - Veuillez indiquer un texte !");
+	if(!text || typeof String(text) !== "string") throw new Error("NazmaJS - Veuillez indiquer un texte !");
 	
 	return String(String(mentionUser(userId)) + String(", ") + String(text));
 	

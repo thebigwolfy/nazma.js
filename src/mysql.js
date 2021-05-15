@@ -2,17 +2,23 @@
 
 const { createConnection } = require("mysql");
 
+let data = 0;
+
 // Exportation de la fonction SQL
 
-module.exports = function (host, user, password, database, charset = "utf8mb4_bin") {
+module.exports.sql = mysql;
+
+function mysql(host, user, password, database, charset = "utf8mb4_bin") {
 	
-	if(!host || typeof host !== "string") throw new Error("NazmaJS - Veuillez indiquer une IP du serveur SQL !");
+	if(!host || typeof Number(host) !== "number") return console.log("NazmaJS - Veuillez indiquer une IP du serveur SQL !");
 	
-	if(!user || typeof user !== "string") throw new Error("NazmaJS - Veuillez indiquer le nom de l'utilisateur d'accès !");
+	if(!user) return console.log("NazmaJS - Veuillez indiquer le nom de l'utilisateur d'accès !");
 	
-	if(!password || typeof password !== "string") throw new Error("NazmaJS - Veuillez indiquer le mot de passe de l'utilisateur d'accès !");
+	if(!password) return console.log("NazmaJS - Veuillez indiquer le mot de passe de l'utilisateur d'accès !");
 	
-	if(!database || typeof database !== "string") throw new Error("NazmaJS - Veuillez indiquer le nom du serveur SQL !");
+	if(!database) return console.log("NazmaJS - Veuillez indiquer le nom du serveur SQL !");
+	
+	if(Number(data) > Number(10)) return console.log("NazmaJS - Vous avez dépasser la limite de tentative de connexion avec le package !");
 	
 	const sql = createConnection({
 			
@@ -20,7 +26,7 @@ module.exports = function (host, user, password, database, charset = "utf8mb4_bi
 		
 		user: user,
 		
-		password: passwordSQLUser,
+		password: password,
 		
 		database: database,
 		
@@ -32,39 +38,49 @@ module.exports = function (host, user, password, database, charset = "utf8mb4_bi
 
 		if(err) {
 			
-			if(err.code === "ERR_INVALID_CALLBACK") console.log("NazmaJS - Mysql - La connexion n'a pas pu être établie !");
+			if(err.code === "ERR_INVALID_CALLBACK") return console.log("NazmaJS - Mysql - La connexion n'a pas pu être établie !");
 			
-			if(err.code === "ER_HOST_IS_BLOCKED") console.log("NazmaJS - Mysql - Le serveur vous a bloquer !");
+			if(err.code === "ER_HOST_IS_BLOCKED") return console.log("NazmaJS - Mysql - Le serveur vous a bloquer !");
 			
-			if(err.code === "ECONNREFUSED") console.log("NazmaJS - Mysql - La connexion est refuser.");
+			if(err.code === "ECONNREFUSED") return console.log("NazmaJS - Mysql - La connexion est refuser.");
 			
 			if(err.code !== "PROTOCOL_CONNECTION_LOST") {
 				
-				console.log("NazmaJS - Mysql - La connexion du serveur SQL s'est arrêter !");
+				mysql(host, user, password, database, charset);
 				
-				mysql(hostSQL, user, passwordSQLUser, database, charset);
+				return console.log("NazmaJS - Mysql - La connexion du serveur SQL s'est arrêter ! Il a redémarre !");
 				
 			}
 			
-		} else return console.log("NazmaJS - Mysql - La connexion est correctement établie ! Connexion ID : " + sql.threadId);
+		} else {
+			
+			data = 0;
+
+			return console.log(`NazmaJS - Mysql - La connexion est correctement établie ! Connexion ID : ${sql.threadId}`);
+			
+		}
 		
 	});
 	
 	sql.on("error", function (err) {
 		
-		if((!error || error !== undefined || error !== null) && (err.code === "PROTOCOL_CONNECTION_LOST" && err.code !== "ER_HOST_IS_BLOCKED" && err.code !== "ERR_INVALID_CALLBACK")) {
+		if(err) {
+			
+			if(err.code !== "ERR_INVALID_CALLBACK" && err.code !== "PROTOCOL_CONNECTION_LOST") {
 				
-			console.log("NazmaJS - Mysql - Redémarrage de la connexion au serveur...");
+				console.log("NazmaJS - Mysql - Une erreur est suvenue !\n");
 			
-			mysql(hostSQL, user, passwordSQLUser, database, charset);
-			
-			data++;
+				return console.log(err);
+				
+			}
 			
 		} else {
 			
-			console.log("NazmaJS - Mysql - Une erreur est suvenue !\n");
+			console.log("NazmaJS - Mysql - Redémarrage de la connexion au serveur...");
 			
-			console.log(err);
+			data++;
+				
+			return mysql(host, user, password, database, charset);
 			
 		}
 		

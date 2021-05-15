@@ -14,7 +14,7 @@ function checkNumber(number) {
 
 	if(!number) return String("NazmaJS - Veuillez inclure un nombre !");
 	
-	if(typeof number !== "number") return String("NazmaJS - Veuillez inclure un nombre valide !");
+	if(typeof Number(number) !== "number") return String("NazmaJS - Veuillez inclure un nombre valide !");
 	
 	return undefined;
 	

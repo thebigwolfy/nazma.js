@@ -2,7 +2,7 @@
 
 	"name": "nazma.js",
 	  
-	"version": "0.2.60",
+	"version": "0.3.3",
 	  
 	"main": "index.js",
 	  
@@ -11,12 +11,14 @@
 	"description": "Un package simple, optimisé et pratique en français grâce au bot Nazma.",
 	  
 	"dependencies": {
+		
+		"discord.js": "=12.5.3",
 
-		"mysql": "=2.18.0"
+		"mysql": "=2.18.1"
 		
 	},
 	  
-	"keywords": [ "nazma", "discord" ],
+	"keywords": [ "nazma", "nazmabot", "discord", "discordbot", "bot" ],
 	  
 	"license": "MIT",
 	

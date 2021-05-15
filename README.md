@@ -14,7 +14,40 @@ Si vous avez des suggestion redirigez vous vers le github !
 ```
 
 // Sortie
-// "`Un texte d'example ?!!`"
+// "Un texte d'example ?!!"
+// type : "string"
+
+## Fonction `replace()`
+```js
+	const { replace } = require("nazma.js");
+	
+	console.log(replace("&", "Un texte d'example ?!! &lol& :)"));
+```
+
+// Sortie
+// "Un texte d'example ?!! lol& :)"
+// type : "string"
+
+## Fonction `replaceAll()`
+```js
+	const { replaceAll } = require("nazma.js");
+	
+	console.log(replaceAll("&", "Un texte d'example ?!! &lol& :)"));
+```
+
+// Sortie
+// "Un texte d'example ?!! lol :)"
+// type : "string"
+
+## Fonction `replaceMention()`
+```js
+	const { replaceMention } = require("nazma.js");
+	
+	console.log(replaceMention("Un texte d'example ?!! @here"));
+```
+
+// Sortie
+// "Un texte d'example ?!! here"
 // type : "string"
 
 ## Fonction `percentageNumber()`

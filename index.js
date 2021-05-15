@@ -1,35 +1,49 @@
 "use strict";
 
+// Exportations des fichiers
+
+const { textFormat, replace, replaceAll, replaceMention, percentageNumber, reducNumber } = require("./src/fonctions.js");
+
+const { mentionChannel, mentionRole, mentionUser, mentionTextUser } = require("./src/mentions.js");
+
+const { name, version } = require("./package.json");
+
 // Exportations de toute les fonctions et données
 
 module.exports = {
 
 	// Fontions utile
 	
-	textFormat: require("./src/fonctions.js").textFormat,
+	textFormat,
 	
-	percentageNumber: require("./src/fonctions.js").percentageNumber,
+	replace,
 	
-	reducNumber: require("./src/fonctions.js").reducNumber,
+	replaceAll,
+	
+	replaceMention,
+	
+	percentageNumber,
+	
+	reducNumber,
 	
 	// Fonctions complément
 	
-	mentionChannel: require("./src/mentions.js").mentionChannel,
+	mentionChannel,
 	
-	mentionRole: require("./src/mentions.js").mentionRole,
+	mentionRole,
 	
-	mentionUser: require("./src/mentions.js").mentionUser,
+	mentionUser,
 	
-	mentionTextUser: require("./src/mentions.js").mentionTextUser,
+	mentionTextUser,
 	
 	// Fonction pour la bae de donnée sql
 	
-	mysql: require("./src/mysql.js"),
+	mysql: require("./src/mysql.js").sql,
 
 	// Les données classique
 
-	name: require("./package.json").name,
+	name,
 	
-	version: require("./package.json").version
+	version
 
 }
