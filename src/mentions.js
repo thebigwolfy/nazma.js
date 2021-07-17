@@ -1,6 +1,6 @@
 "use strict";
 
-const { checkNumber } = require("./interne.js");
+const { error, checkNumber } = require("./interne.js");
 
 // Exportations des fonctions utile
 
@@ -20,7 +20,9 @@ module.exports = {
 
 function mentionChannel(channelId) {
 	
-	if(checkNumber(channelId) !== undefined) throw new Error(checkNumber(channelId));
+	if(!channelId) return;
+	
+	if(checkNumber(channelId, false) === false) return checkNumber(channelId, true);
 	
 	return String("<#" + channelId +  ">");
 	
@@ -28,7 +30,9 @@ function mentionChannel(channelId) {
 
 function mentionRole(roleId) {
 	
-	if(checkNumber(roleId) !== undefined) throw new Error(checkNumber(roleId));
+	if(!roleId) return;
+	
+	if(checkNumber(roleId, false) === false) return checkNumber(roleId, true);
 	
 	return String("<@&" + roleId +  ">");
 	
@@ -36,7 +40,9 @@ function mentionRole(roleId) {
 
 function mentionUser(userId) {
 	
-	if(checkNumber(userId) !== undefined) throw new Error(checkNumber(userId));
+	if(!userId) return;
+	
+	if(checkNumber(userId, false) === false) return checkNumber(userId, true);
 	
 	return String("<@" + userId +  ">");
 	
@@ -44,10 +50,12 @@ function mentionUser(userId) {
 
 function mentionTextUser(userId, text) {
 	
-	if(checkNumber(userId) !== undefined) throw new Error(checkNumber(userId));
+	if(!userId) return;
 	
-	if(!text || typeof String(text) !== "string") throw new Error("NazmaJS - Veuillez indiquer un texte !");
+	if(!text) return;
 	
+	if(checkNumber(userId, false) === false) return checkNumber(userId, true);
+
 	return String(String(mentionUser(userId)) + String(", ") + String(text));
 	
 }

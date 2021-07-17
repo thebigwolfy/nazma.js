@@ -1,26 +1,26 @@
 "use strict";
 
-const { createConnection } = require("mysql");
+const { error } = require("./interne.js");
 
-let data = 0;
+const { createPool } = require("mysql2");
 
 // Exportation de la fonction SQL
 
-module.exports.sql = mysql;
+module.exports = mysql;
 
-function mysql(host, user, password, database, charset = "utf8mb4_bin") {
+// Fonction MySQL ( connexion )
+
+function mysql(host, user, password, database, charset = "utf8mb4_bin", connectionAll = 10) {
 	
-	if(!host || typeof Number(host) !== "number") return console.log("NazmaJS - Veuillez indiquer une IP du serveur SQL !");
+	if(!host || typeof Number(host) !== "number") return error("NazmaJS - Veuillez indiquer une IP du serveur SQL !", "default");
 	
-	if(!user) return console.log("NazmaJS - Veuillez indiquer le nom de l'utilisateur d'accès !");
+	if(!user) return error("NazmaJS - Veuillez indiquer le nom de l'utilisateur d'accès !", "default");
 	
-	if(!password) return console.log("NazmaJS - Veuillez indiquer le mot de passe de l'utilisateur d'accès !");
+	if(!password) return error("NazmaJS - Veuillez indiquer le mot de passe de l'utilisateur d'accès !", "default");
 	
-	if(!database) return console.log("NazmaJS - Veuillez indiquer le nom du serveur SQL !");
-	
-	if(Number(data) > Number(10)) return console.log("NazmaJS - Vous avez dépasser la limite de tentative de connexion avec le package !");
-	
-	const sql = createConnection({
+	if(!database) return error("NazmaJS - Veuillez indiquer le nom du serveur SQL !", "default");
+
+	const sql = createPool({
 			
 		host: host,
 		
@@ -30,58 +30,63 @@ function mysql(host, user, password, database, charset = "utf8mb4_bin") {
 		
 		database: database,
 		
-		charset: charset
+		charset: charset,
 		
-	});
-
-	sql.connect((err) => {
-
-		if(err) {
-			
-			if(err.code === "ERR_INVALID_CALLBACK") return console.log("NazmaJS - Mysql - La connexion n'a pas pu être établie !");
-			
-			if(err.code === "ER_HOST_IS_BLOCKED") return console.log("NazmaJS - Mysql - Le serveur vous a bloquer !");
-			
-			if(err.code === "ECONNREFUSED") return console.log("NazmaJS - Mysql - La connexion est refuser.");
-			
-			if(err.code !== "PROTOCOL_CONNECTION_LOST") {
-				
-				mysql(host, user, password, database, charset);
-				
-				return console.log("NazmaJS - Mysql - La connexion du serveur SQL s'est arrêter ! Il a redémarre !");
-				
-			}
-			
-		} else {
-			
-			data = 0;
-
-			return console.log(`NazmaJS - Mysql - La connexion est correctement établie ! Connexion ID : ${sql.threadId}`);
-			
-		}
+		multipleStatements: true,
+		
+		connectionLimit: connectionAll
 		
 	});
 	
-	sql.on("error", function (err) {
+	let codeError = [
+	
+		{
+			
+			code: "PROTOCOL_CONNECTION_LOST",
+			
+			errorText: "NazmaJS - Le serveur SQL doit recharger !",
+			
+			error: false,
+			
+			reload: true
+			
+		},
 		
-		if(err) {
+		{
 			
-			if(err.code !== "ERR_INVALID_CALLBACK" && err.code !== "PROTOCOL_CONNECTION_LOST") {
-				
-				console.log("NazmaJS - Mysql - Une erreur est suvenue !\n");
+			code: "ER_HOST_IS_BLOCKED",
 			
-				return console.log(err);
+			errorText: "NazmaJS - Le serveur SQL a bloquer les connexions !",
+			
+			error: true,
+			
+			reload: false
+			
+		}
+	
+	];
+
+	sql.getConnection((err, connection) => {
+
+        if(err) {
+		
+			let code = codeError.filter((b) => b.code === err.code)[0];
+		
+			if(code) {
 				
-			}
+				if(code.reload === true) return mysql(host, user, password, database, charset, connectionAll);
+				
+				return error(String(code.error === true ? code.errorText : String(err.message ? err.message : err.code)), "mysql");
+				
+			} else return error(String(err.message ? err.message : err.code), "mysql");
+			
 			
 		} else {
 			
-			console.log("NazmaJS - Mysql - Redémarrage de la connexion au serveur...");
+			connection.release();
 			
-			data++;
-				
-			return mysql(host, user, password, database, charset);
-			
+			return console.log(`NazmaJS - Mysql - La connexion est correctement établie ! Connexion ID : ${connection.threadId}`);
+		
 		}
 		
 	});

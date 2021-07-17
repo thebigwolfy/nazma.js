@@ -1,12 +1,14 @@
 "use strict";
 
-const { checkNumber } = require("./interne.js");
+const { error, checkNumber } = require("./interne.js");
 
 // Exportations des fonctions utile
 
 module.exports = {
 	
 	textFormat,
+	
+	timeFormat,
 	
 	replace,
 	
@@ -26,6 +28,20 @@ function textFormat(text) {
 	
 	return String("`" + text + "`");
 	
+}
+
+function timeFormat(time) {
+	
+	if(!time) return error("NazmaJS - Veuillez indiquer un temps ( en secondes ) !", "default");
+		
+	return String(time < 60 ? (Number(time).toFixed(0) + "s") :
+	
+		time < 3600 ? (Number(time / 60).toFixed(0) + "min") :
+		
+		time < 3600 * 399 ? (Number(time / 3600).toFixed(0) + "h") :
+		
+		(Number(time / 3600 * 24).toFixed(0) + "j"));
+		
 }
 
 function replace(textReplace, text) {
@@ -54,19 +70,19 @@ function replaceMention(text) {
 
 function percentageNumber(number, numberTotal, fixed = 0) {
 	
-	if(checkNumber(number) !== undefined) throw new Error(checkNumber(number));
+	if(checkNumber(number, false) === false) return checkNumber(number, true);
 	
-	if(number.includes("-")) throw new Error("NazmaJS - Veuillez inclure un nombre entier !");
+	if(String(number).includes("-")) return error("NazmaJS - Veuillez inclure un nombre entier !", "default");
 	
-	if(checkNumber(numberTotal) !== undefined) throw new Error(checkNumber(numberTotal));
+	if(checkNumber(numberTotal, false) === false) return checkNumber(numberTotal, true);
 	
-	if(numberTotal.includes("-")) throw new Error("NazmaJS - Veuillez inclure un nombre entier !");
+	if(String(numberTotal).includes("-")) return error("NazmaJS - Veuillez inclure un nombre entier !", "default");
 	
 	if(fixed && Number(fixed) !== Number("0")) {
 		
-		if(checkNumber(fixed) !== undefined) throw new Error(checkNumber(fixed));
+		if(checkNumber(fixed, false) === false) return checkNumber(fixed, true);
 	
-		if(fixed.includes("-") || fixed.includes(".")) throw new Error("NazmaJS - Veuillez inclure un nombre entier !");
+		if(String(fixed).includes("-") || String(fixed).includes(".")) return error("NazmaJS - Veuillez inclure un nombre entier !", "default");
 		
 	}
 	
@@ -76,23 +92,11 @@ function percentageNumber(number, numberTotal, fixed = 0) {
 
 function reducNumber(number) {
 
-	if(checkNumber(number) !== undefined) {
-		
-		console.log(checkNumber(number));
-		
-		return undefined;
-		
-	}
+	if(checkNumber(number, false) === false) return checkNumber(number, true);
 	
 	number = String(number);
 	
-	if(number.includes("-")) {
-		
-		console.log("NazmaJS - Veuillez inclure un nombre entier !");
-		
-		return undefined;
-		
-	}
+	if(String(number).includes("-")) return error("NazmaJS - Veuillez inclure un nombre entier !", "default");
 	
 	let result = number;
 	

@@ -1,137 +1,148 @@
 # Description
 
 Nous souhaitons vous facilité la vie sur certaines fonctionnalités !
-Optimisé, propre, facile et simple a utiliser !
-Si vous avez des suggestion redirigez vous vers le github !
 
-# Fonctions
+Optimisé, propre, facile et simple a utiliser !
+
+Si vous avez des suggestion redirigez vous vers le github ou le support du bot ( Nazma ) !
+
+# Les fonctions
+
+## Fonction `api.blacklist()`
+```js
+const { api } = require("nazma.js");
+
+const options = {
+
+	password: "", // obligatoire
+
+	userID: "", // obligatoire
+	
+	reason: "", // seulement pour le add et update
+	
+	links: "" // seulement pour le add et update
+
+};
+
+const type = "add"; // add, remove and update
+	
+console.log(api.blacklist(type, options));
+```
+
+## Fonction `antiLinks()`
+```js
+const { antiLinks } = require("nazma.js");
+
+client.on("message", (message) => {
+
+	antiLinks(client, message, {
+				
+		only: true, // système on ( true ) : off ( false )
+		
+		links: [ "monsite.fr" ],
+		
+		//permsUser: message.guild.members.cache.get(message.author.id).permissions.has(Permissions.FLAGS.MANAGE_MESSAGES),
+				
+		permsBot: message.guild.members.cache.get(client.user.id).permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)
+		
+	}).then((insultes) => {
+	
+		if(insultes) "La personne a mit un lien.";
+		
+		else "La personne a pas mit de lien.";
+	
+	}).catch((err) => {
+	
+		console.log(err);
+	
+	});
+	
+});
+```
 
 ## Fonction `textFormat()`
 ```js
-	const { textFormat } = require("nazma.js");
+const { textFormat } = require("nazma.js");
 	
-	console.log(textFormat("Un texte d'example ?!!"));
+console.log(textFormat("Un texte d'exemple ?!!"));
 ```
-
-// Sortie
-// "Un texte d'example ?!!"
-// type : "string"
 
 ## Fonction `replace()`
 ```js
-	const { replace } = require("nazma.js");
+const { replace } = require("nazma.js");
 	
-	console.log(replace("&", "Un texte d'example ?!! &lol& :)"));
+console.log(replace("&", "Un texte d'exemple ?!! &lol& :)"));
 ```
-
-// Sortie
-// "Un texte d'example ?!! lol& :)"
-// type : "string"
 
 ## Fonction `replaceAll()`
 ```js
-	const { replaceAll } = require("nazma.js");
+const { replaceAll } = require("nazma.js");
 	
-	console.log(replaceAll("&", "Un texte d'example ?!! &lol& :)"));
+console.log(replaceAll("&", "Un texte d'exemple ?!! &lol& :)"));
 ```
-
-// Sortie
-// "Un texte d'example ?!! lol :)"
-// type : "string"
 
 ## Fonction `replaceMention()`
 ```js
-	const { replaceMention } = require("nazma.js");
+const { replaceMention } = require("nazma.js");
 	
-	console.log(replaceMention("Un texte d'example ?!! @here"));
+console.log(replaceMention("Un texte d'exemple ?!! @here")); // remplace la mention here et everyone
 ```
-
-// Sortie
-// "Un texte d'example ?!! here"
-// type : "string"
 
 ## Fonction `percentageNumber()`
 ```js
-	const { percentageNumber } = require("nazma.js");
+const { percentageNumber } = require("nazma.js");
 	
-	console.log(percentageNumber(20, 50));
+console.log(percentageNumber(20, 50));
 ```
-
-// Sortie
-// "40%"
-// type : "string"
 
 ## Fonction `reducNumber()`
 ```js
-	const { reducNumber } = require("nazma.js");
+const { reducNumber } = require("nazma.js");
 	
-	console.log(reducNumber(2000));
+console.log(reducNumber(2000));
 ```
-
-// Sortie
-// "2k"
-// type : "string"
 
 ## Fonction `mentionChannel()`
 ```js
-	const { mentionChannel } = require("nazma.js");
+const { mentionChannel } = require("nazma.js");
 	
-	console.log(mentionChannel(channelId));
+console.log(mentionChannel(channelId));
 ```
-
-// Sortie
-// "<#00000000>"
-// type : "string"
 
 ## Fonction `mentionRole()`
 ```js
-	const { mentionRole } = require("nazma.js");
+const { mentionRole } = require("nazma.js");
 	
-	console.log(mentionRole(roleId));
+console.log(mentionRole(roleId));
 ```
-
-// Sortie
-// "<@&00000000>"
-// type : "string"
 
 ## Fonction `mentionUser()`
 ```js
-	const { mentionUser } = require("nazma.js");
+const { mentionUser } = require("nazma.js");
 	
-	console.log(mentionUser(userId));
+console.log(mentionUser(userId));
 ```
-
-// Sortie
-// "<@00000000>"
-// type : "string"
 
 ## Fonction `mentionTextUser()`
 ```js
-	const { mentionTextUser } = require("nazma.js");
+const { mentionTextUser } = require("nazma.js");
 	
-	console.log(mentionTextUser(userId, "Un texte d'example ?!!"));
+console.log(mentionTextUser(userId, "Un texte d'example ?!!"));
 ```
-
-// Sortie
-// "<@00000000>, Un texte d'example ?!!"
-// type : "string"
 
 ## Fonction `mysql()`
 ```js
-	const { mysql } = require("nazma.js");
+const { mysql } = require("nazma.js");
 	
-	console.log(mysql(host, user, password, database, charset));
+console.log(mysql(host, user, password, database, charset, connexion));
 ```
-
-// Sortie
-// { Object(sql) }
-// type : "object"
-
-// charset n'est pas obligatoire
 
 # Liens
 
-[Nazma](https://nazmabot.fr)
-[Nazma Invite](https://nazmabot.fr/invite)
-[Nazma Support](https://nazmabot.fr/support)
-[NazmaJS github](https://github.com/thebigwolfy/nazma.js)
+- [Nazma](https://nazmabot.fr)
+
+- [Nazma Invite](https://nazmabot.fr/invite)
+
+- [Nazma Support](https://nazmabot.fr/support)
+
+- [NazmaJS github](https://github.com/thebigwolfy/nazma.js)

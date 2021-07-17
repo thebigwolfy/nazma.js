@@ -2,27 +2,29 @@
 
 	"name": "nazma.js",
 	  
-	"version": "0.3.3",
+	"version": "0.3.28",
 	  
 	"main": "index.js",
 	  
 	"author": "thebigwolfy",
 	  
-	"description": "Un package simple, optimisé et pratique en français grâce au bot Nazma.",
+	"description": "Un package simple, optimisé et pratique en français grâce au bot Nazma ( nazmabot.fr ).",
 	  
 	"dependencies": {
 		
 		"discord.js": "=12.5.3",
 
-		"mysql": "=2.18.1"
+		"mysql2": "=2.2.5",
+		
+		"node-fetch": "=2.6.1"
 		
 	},
 	  
-	"keywords": [ "nazma", "nazmabot", "discord", "discordbot", "bot" ],
+	"keywords": [ "nazma", "nazmabot", "discord", "discordbot", "bot", "sql", "mysql", "mysql2", "api", "apinazma", "antiliens", "antilinks" ],
 	  
 	"license": "MIT",
 	
-	"urlPackage": "https://www.npmjs.com/package/nazma.js",
+	"urlPackage": "https://npmjs.com/package/nazma.js",
 	
 	"bugs": {
 	

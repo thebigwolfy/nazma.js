@@ -4,18 +4,51 @@
 
 module.exports = {
 	
+	error,
+	
 	checkNumber
 	
 }
 
 // Fonctions utile
 
-function checkNumber(number) {
+function error(data, type = "default") {
+	
+	if(type = "default") {
 
-	if(!number) return String("NazmaJS - Veuillez inclure un nombre !");
+		console.log(new Error(data));
+		
+		return Object({
+		
+			error: data
+		
+		});
+		
+	} else if(type === "mysql") {
+		
+		data = Object(data);
+		
+		console.log(new Error("NazmaJS - Mysql - Erreur :\nMessage SQL : " + data.sqlMessage + "\n\nCode SQL de tentative : " + data.sql));
+		
+		return Object({
+			
+			sql: data.sql,
+		
+			error: data.sqlMessage
+		
+		});
 	
-	if(typeof Number(number) !== "number") return String("NazmaJS - Veuillez inclure un nombre valide !");
+	} else return undefined;
+
+}
+
+function checkNumber(number, data = false) {
+
+	if(!number && data === true) return error("NazmaJS - Veuillez inclure un nombre !", "default");
 	
-	return undefined;
+	if(typeof Number(number) !== "number") return false;
+	
+	else return true;
+	
 	
 }

@@ -1,20 +1,34 @@
 "use strict";
 
-// Exportations des fichiers
+// Exportations des fonctions dans les fichiers
 
-const { textFormat, replace, replaceAll, replaceMention, percentageNumber, reducNumber } = require("./src/fonctions.js");
+const { textFormat, timeFormat, replace, replaceAll, replaceMention, percentageNumber, reducNumber } = require("./src/fonctions.js");
 
 const { mentionChannel, mentionRole, mentionUser, mentionTextUser } = require("./src/mentions.js");
 
 const { name, version } = require("./package.json");
 
+const { api } = require("./src/api/nazma.js");
+
+const antiLinks = require("./src/anti-links.js");
+
 // Exportations de toute les fonctions et données
 
 module.exports = {
+	
+	// API
+	
+	api,
+	
+	// Fonctions améliorer
+	
+	antiLinks,
 
 	// Fontions utile
 	
 	textFormat,
+	
+	timeFormat,
 	
 	replace,
 	
@@ -36,14 +50,14 @@ module.exports = {
 	
 	mentionTextUser,
 	
-	// Fonction pour la bae de donnée sql
+	// Fonction pour la base de donnée SQL
 	
-	mysql: require("./src/mysql.js").sql,
+	mysql: require("./src/mysql.js"),
 
-	// Les données classique
+	// Les données classique du package
 
 	name,
 	
 	version
 
-}
+};
