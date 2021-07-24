@@ -72,17 +72,17 @@ function percentageNumber(number, numberTotal, fixed = 0) {
 	
 	if(checkNumber(number, false) === false) return checkNumber(number, true);
 	
-	if(String(number).includes("-")) return error("NazmaJS - Veuillez inclure un nombre entier !", "default");
+	if(String(number).includes("-")) return error("NazmaJS - Veuillez inclure un nombre positif !", "default");
 	
 	if(checkNumber(numberTotal, false) === false) return checkNumber(numberTotal, true);
 	
-	if(String(numberTotal).includes("-")) return error("NazmaJS - Veuillez inclure un nombre entier !", "default");
+	if(String(numberTotal).includes("-")) return error("NazmaJS - Veuillez inclure un nombre positif !", "default");
 	
 	if(fixed && Number(fixed) !== Number("0")) {
 		
 		if(checkNumber(fixed, false) === false) return checkNumber(fixed, true);
 	
-		if(String(fixed).includes("-") || String(fixed).includes(".")) return error("NazmaJS - Veuillez inclure un nombre entier !", "default");
+		if(String(fixed).includes("-") || String(fixed).includes(".")) return error("NazmaJS - Veuillez inclure un nombre positif !", "default");
 		
 	}
 	
@@ -91,25 +91,31 @@ function percentageNumber(number, numberTotal, fixed = 0) {
 }
 
 function reducNumber(number) {
-
+	
 	if(checkNumber(number, false) === false) return checkNumber(number, true);
 	
-	number = String(number);
+	if(String(number).includes("-")) return error("NazmaJS - Veuillez inclure un nombre positif !", "default");
 	
-	if(String(number).includes("-")) return error("NazmaJS - Veuillez inclure un nombre entier !", "default");
-	
-	let result = number;
+	let extra = 0;
 	
 	if(number.length > 9) {
 		
-		result = String(result.substr(0, 9) + "md");
+		extra = -9;
+		
+		return String(number.slice(0, extra) + "md");
 		
 	} else if(number.length > 6) {
 		
-		result = String(result.substr(0, 6) + "m");
+		extra = -6;
 		
-	} else if(number.length > 3) result = String(result.substr(0, 3) + "k");
-	
-	return String(result);
+		return String(number.slice(0, extra) + "m");
+		
+	} else if(number.length > 3) {
+		
+		extra = -3;
+		
+		return String(number.slice(0, extra) + "k");
+		
+	} else return String(number);
 
 }
