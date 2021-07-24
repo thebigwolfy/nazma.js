@@ -90,7 +90,7 @@ function percentageNumber(number, numberTotal, fixed = 0) {
 	
 }
 
-function reducNumber(number) {
+function reducNumber(number, decimal = false) {
 	
 	if(checkNumber(number, false) === false) return checkNumber(number, true);
 	
@@ -100,21 +100,21 @@ function reducNumber(number) {
 	
 	if(number.length > 9) {
 		
-		extra = -9;
+		if(decimal) return String(number.slice(0, -10) + "md");
 		
-		return String(number.slice(0, extra) + "md");
+		else return String(number.slice(0, -9) + "md");
 		
 	} else if(number.length > 6) {
 		
-		extra = -6;
+		if(decimal) return String(number.slice(0, -7) + "m");
 		
-		return String(number.slice(0, extra) + "m");
+		else return String(number.slice(0, -6) + "m");
 		
 	} else if(number.length > 3) {
 		
-		extra = -3;
+		if(decimal) return String(number.slice(0, -4) + "k");
 		
-		return String(number.slice(0, extra) + "k");
+		else return String(number.slice(0, -3) + "k");
 		
 	} else return String(number);
 
