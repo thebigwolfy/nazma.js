@@ -6,8 +6,6 @@ const { error, checkNumber } = require("./interne.js");
 
 module.exports = {
 	
-	textFormat,
-	
 	timeFormat,
 	
 	replace,
@@ -16,19 +14,11 @@ module.exports = {
 	
 	replaceMention,
 	
-	percentageNumber,
-	
-	reducNumber
+	percentageNumber
 	
 }
 
 // Fonctions utile
-
-function textFormat(text) {
-	
-	return String("`" + text + "`");
-	
-}
 
 function timeFormat(time) {
 	
@@ -54,7 +44,7 @@ function replace(textReplace, text) {
 
 function replaceAll(textReplace, text) {
 	
-	if(textReplace && text) text = text.replace(/${textReplace}/gi, "");
+	if(textReplace && text) text = text.replace(/${String(textReplace)}/gi, "");
 	
 	return String(text);
 	
@@ -88,34 +78,4 @@ function percentageNumber(number, numberTotal, fixed = 0) {
 	
 	return String(Number(Number(number) * Number(100) / Number(numberTotal)).toFixed(fixed) + "%");
 	
-}
-
-function reducNumber(number, decimal = false) {
-	
-	if(checkNumber(number, false) === false) return checkNumber(number, true);
-	
-	if(String(number).includes("-")) return error("NazmaJS - Veuillez inclure un nombre positif !", "default");
-	
-	let extra = 0;
-	
-	if(number.length > 9) {
-		
-		if(decimal) return String(number.slice(0, -10) + "md");
-		
-		else return String(number.slice(0, -9) + "md");
-		
-	} else if(number.length > 6) {
-		
-		if(decimal) return String(number.slice(0, -7) + "m");
-		
-		else return String(number.slice(0, -6) + "m");
-		
-	} else if(number.length > 3) {
-		
-		if(decimal) return String(number.slice(0, -4) + "k");
-		
-		else return String(number.slice(0, -3) + "k");
-		
-	} else return String(number);
-
 }

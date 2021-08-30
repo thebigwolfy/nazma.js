@@ -2,31 +2,25 @@
 
 Nous souhaitons vous facilité la vie sur certaines fonctionnalités !
 
-Optimisé, propre, facile et simple a utiliser !
-
-Si vous avez des suggestion redirigez vous vers le github ou le support du bot ( Nazma ) !
+Optimisé, propre, facile et simple à utiliser !
 
 # Les fonctions
 
 ## Fonction `api.blacklist()`
 ```js
-const { api } = require("nazma.js");
+const { blacklist } = require("nazma.js").api;
 
-const options = {
+// le type list est actuellement non fonctionnel
 
-	password: "", // obligatoire
+console.log(blacklist("add", password, { // type : list, add, remove and update, password : votre mot de passe
 
-	userID: "", // obligatoire
+	userID: "", // obligatoire, sauf sur le type list
 	
-	reason: "", // seulement pour le add et update
+	reason: "", // seulement pour le type : add et update
 	
-	links: "" // seulement pour le add et update
+	links: "" // seulement pour le type : add et update
 
-};
-
-const type = "add"; // add, remove and update
-	
-console.log(api.blacklist(type, options));
+}));
 ```
 
 ## Fonction `antiLinks()`
@@ -35,15 +29,21 @@ const { antiLinks } = require("nazma.js");
 
 client.on("message", (message) => {
 
-	antiLinks(client, message, {
+	antiLinks(message, {
 				
-		only: true, // système on ( true ) : off ( false )
+		only: true, // activation ( true ou false )
 		
-		links: [ "monsite.fr" ],
+		//links: [ "monsite.fr" ], // vos liens en plus de celle par défaut, fonctionnel avec une base de données ( fonction non obligatoire )
 		
-		//permsUser: message.guild.members.cache.get(message.author.id).permissions.has(Permissions.FLAGS.MANAGE_MESSAGES),
+		user: {
+		
+			id: message.author.id,
+			
+			perm: "MANAGE_MESSAGES" // mettez la permission souhaitez 
+		
+		}, // vérification de la permission indiquer a l'utilisateur indiquer
 				
-		permsBot: message.guild.members.cache.get(client.user.id).permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)
+		messageDelete: false // supprimer le message de l'utilisateur ( true ou false )
 		
 	}).then((insultes) => {
 	
@@ -53,11 +53,26 @@ client.on("message", (message) => {
 	
 	}).catch((err) => {
 	
-		console.log(err);
+		console.error(err); // erreur
 	
 	});
 	
 });
+```
+
+## Fonction `progressBar()`
+```js
+const { progressBar } = require("nazma.js");
+
+console.log(progressBar({
+
+	type: "split", // split ou filled
+	
+	total: 20, // nombre totale de la barre de progression
+	
+	value: 10 // nombre de la progression ( exemple : 10xp )
+	
+}));
 ```
 
 ## Fonction `textFormat()`
@@ -92,14 +107,35 @@ console.log(replaceMention("Un texte d'exemple ?!! @here")); // remplace la ment
 ```js
 const { percentageNumber } = require("nazma.js");
 	
-console.log(percentageNumber(20, 50));
+console.log(percentageNumber(20, 50)); // string non obligatoire
 ```
 
 ## Fonction `reducNumber()`
 ```js
 const { reducNumber } = require("nazma.js");
 	
-console.log(reducNumber(2000));
+console.log(reducNumber({
+
+	number: 2000, // string non obligatoire
+
+	decimal: false // permet d'avoir une sortie en nombre décimale ( comme : entrer 2101, sortie 2.1k )
+
+}));
+```
+
+## Fonction `checkPerm()`
+```js
+const { checkPerm } = require("nazma.js");
+	
+console.log(checkPerm({
+			
+	guild: message.guild, // l'object d'un serveur
+			
+	userId: message.author.id, // l'id de l'utilisateur
+			
+	perm: "MANAGE_MESSAGES" // la permission que la fonction doit vérifier
+
+})); // sortie : true ( possède la permission ) / false ( ne possède pas la permission )
 ```
 
 ## Fonction `mentionChannel()`
@@ -114,6 +150,13 @@ console.log(mentionChannel(channelId));
 const { mentionRole } = require("nazma.js");
 	
 console.log(mentionRole(roleId));
+```
+
+## Fonction `mentionTextRole()`
+```js
+const { mentionTextRole } = require("nazma.js");
+	
+console.log(mentionTextRole(roleId, "Un texte d'example ?!!"));
 ```
 
 ## Fonction `mentionUser()`

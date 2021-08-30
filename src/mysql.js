@@ -85,7 +85,7 @@ function mysql(host, user, password, database, charset = "utf8mb4_bin", connecti
 			
 			connection.release();
 			
-			return console.log(`NazmaJS - Mysql - La connexion est correctement établie ! Connexion ID : ${connection.threadId}`);
+			return console.log(`NazmaJS - Mysql - La connexion est correctement établie ( id : ${connection.threadId} ) !`);
 		
 		}
 		

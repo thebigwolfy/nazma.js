@@ -1,50 +1,62 @@
 "use strict";
 
-const { checkNumber, error } = require("../interne.js");
+const { checkNumber } = require("../interne.js");
 
 const fetch = require("node-fetch");
 
-let app = String("http://pterodactyl.chaun14.fr:26016");
+const app = "http://pterodactyl.chaun14.fr:26016";
 
-// Exportations des fonctions utile
+// Exportations des fonctions utile ( api )
 
-module.exports = {
+module.exports.api = {
 	
-	api: {
-		
-		blacklist
-		
-	}
+	blacklist
 	
-}
+};
 
-// Fonctions utile de l'api ( avec mot de passe )
-
-function blacklist(type, options) {
+function blacklist(type, password, options) {
 	
-	if(!type) return error("NazmaJS - Veuillez indiquer un type d'action avec l'api de la liste noire !", "default");
+	if(!type || typeof type !== "string") throw new Error("Veuillez indiquer un type d'action avec l'api de la liste noire !");
 	
-	if(String(type) === "add") {
-		
-		if(checkNumber(options.userID, false) === false) return checkNumber(options.userID, true);
+	if(!password || typeof password !== "string") throw new Error("Veuillez indiquer un mot de passe valide !");
 	
-		let body = {
-					
-			"password": options.password,
-
-			"userID": options.userID,
+	if(String(type) === "list") return fetch(`${app}/blacklist/list`, {
 			
-			"reason": options.reason,
+		method: "POST",
+		
+		body: JSON.stringify({
+				
+			"password": password
 			
-			"links": options.links
+		}),
+		
+		headers: {
+			
+			"Content-Type": "application/json"
 			
 		}
-			
-		return fetch(String(app + "/blacklist/add"), {
+		
+	});
+	
+	else if(String(type) === "add") {
+		
+		if(!checkNumber(options.userID, false)) return checkNumber(options.userID, true);
+	
+		return fetch(`${app}/blacklist/add`, {
 			
 			method: "POST",
 			
-			body: JSON.stringify(body),
+			body: JSON.stringify({
+					
+				"password": password,
+
+				"userID": options.userID,
+				
+				"reason": options.reason,
+				
+				"links": options.links
+				
+			}),
 			
 			headers: {
 				
@@ -56,25 +68,23 @@ function blacklist(type, options) {
 		
 	} else if(String(type) === "update") {
 		
-		if(checkNumber(options.userID, false) === false) return checkNumber(options.userID, true);
+		if(!checkNumber(options.userID, false)) return checkNumber(options.userID, true);
 	
-		let body = {
-					
-			"password": options.password,
-
-			"userID": options.userID,
-			
-			"reason": options.reason,
-			
-			"links": options.links
-			
-		}
-			
-		return fetch(String(app + "/blacklist/update"), {
+		return fetch(`${app}/blacklist/update`, {
 			
 			method: "POST",
 			
-			body: JSON.stringify(body),
+			body: JSON.stringify({
+					
+				"password": password,
+
+				"userID": options.userID,
+				
+				"reason": options.reason,
+				
+				"links": options.links
+				
+			}),
 			
 			headers: {
 				
@@ -86,21 +96,19 @@ function blacklist(type, options) {
 		
 	} else if([ "remove", "del" ].includes(String(type))) {
 		
-		if(checkNumber(options.userID, false) === false) return checkNumber(options.userID, true);
+		if(!checkNumber(options.userID, false)) return checkNumber(options.userID, true);
 	
-		let body = {
-					
-			"password": options.password,
-
-			"userID": options.userID
-			
-		}
-			
-		return fetch(String(app + "/blacklist/del"), {
+		return fetch(`${app}/blacklist/del`, {
 			
 			method: "POST",
 			
-			body: JSON.stringify(body),
+			body: JSON.stringify({
+					
+				"password": password,
+
+				"userID": options.userID
+				
+			}),
 			
 			headers: {
 				
@@ -110,6 +118,6 @@ function blacklist(type, options) {
 			
 		});
 		
-	} else return error("NazmaJS - Veuillez indiquer un type d'action valide avec l'api de la liste noire !", "default");
+	} else throw new Error("NazmaJS - Veuillez indiquer un type d'action valide avec l'api de la liste noire !");
 	
-}
+};
