@@ -10,13 +10,13 @@ module.exports = (options) => {
 
 	const sql = createPool({
 			
-		host,
+		host: options.host,
 		
-		user,
+		user: options.user,
 		
-		password,
+		password : options.password,
 		
-		database,
+		database : options.database,
 		
 		charset: options.charset ? options.charset : "utf8mb4_bin",
 		
@@ -87,7 +87,7 @@ function check(options) {
 
 	if(!options) options = {};
 
-	if(!options.host || typeof Number(host) !== "number") throw new Error("NazmaJS - Veuillez indiquer une IP du serveur SQL !");
+	if(!options.host || typeof Number(options.host) !== "number") throw new Error("NazmaJS - Veuillez indiquer une IP du serveur SQL !");
 
 	if(!options.user) throw new Error("NazmaJS - Veuillez indiquer le nom de l'utilisateur pour accédez au serveur SQL !");
 
