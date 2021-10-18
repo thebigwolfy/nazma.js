@@ -4,36 +4,44 @@ Nous souhaitons vous facilité la vie sur certaines fonctionnalités !
 
 Optimisé, propre, facile et simple à utiliser !
 
+Nous vous conseillons la version 13 de discord.js ( la documentation est faîte avec cette version ) !
+
 # Les fonctions
 
-## Fonction `api.blacklist()`
+## Fonction `checkBot()`
 ```js
-const { blacklist } = require("nazma.js").api;
+const { checkBot } = require("nazma.js");
 
-// le type list est actuellement non fonctionnel
+client.on("messageCreate", (message) => {
 
-console.log(blacklist("add", password, { // type : list, add, remove and update, password : votre mot de passe
-
-	userID: "", // obligatoire, sauf sur le type list
+	checkBot(message).then((checkBot) => { // permissions vérifier : "SEND_MESSAGES" et "EMBED_LINKS"
 	
-	reason: "", // seulement pour le type : add et update
+		if(checkBot) "Posséde les permissions / bot ingoré.";
+		
+		else "Ne posséde pas les permissions.";
 	
-	links: "" // seulement pour le type : add et update
+	}).catch((err) => {
+	
+		console.error(err); // erreur
+	
+	});
 
-}));
+	// cette fonction vérifie si un bot met un message, il l'ignore
+	
+});
 ```
 
 ## Fonction `antiLinks()`
 ```js
 const { antiLinks } = require("nazma.js");
 
-client.on("message", (message) => {
+client.on("messageCreate", (message) => {
 
 	antiLinks(message, {
 				
 		only: true, // activation ( true ou false )
 		
-		//links: [ "monsite.fr" ], // vos liens en plus de celle par défaut, fonctionnel avec une base de données ( fonction non obligatoire )
+		//links: [ "monsite.fr" ], // vos liens en plus de celle par défaut, fonctionnel avec une base de données, non obligatoire
 		
 		user: {
 		
@@ -43,7 +51,7 @@ client.on("message", (message) => {
 		
 		}, // vérification de la permission indiquer a l'utilisateur indiquer
 				
-		messageDelete: false // supprimer le message de l'utilisateur ( true ou false )
+		//messageDelete: false // supprimer le message de l'utilisateur ( true ou false ), par défaut c'est false
 		
 	}).then((insultes) => {
 	
@@ -75,32 +83,11 @@ console.log(progressBar({
 }));
 ```
 
-## Fonction `textFormat()`
+## Fonction `timeFormat()`
 ```js
-const { textFormat } = require("nazma.js");
+const { timeFormat } = require("nazma.js");
 	
-console.log(textFormat("Un texte d'exemple ?!!"));
-```
-
-## Fonction `replace()`
-```js
-const { replace } = require("nazma.js");
-	
-console.log(replace("&", "Un texte d'exemple ?!! &lol& :)"));
-```
-
-## Fonction `replaceAll()`
-```js
-const { replaceAll } = require("nazma.js");
-	
-console.log(replaceAll("&", "Un texte d'exemple ?!! &lol& :)"));
-```
-
-## Fonction `replaceMention()`
-```js
-const { replaceMention } = require("nazma.js");
-	
-console.log(replaceMention("Un texte d'exemple ?!! @here")); // remplace la mention here et everyone
+console.log(timeFormat("30")); // le temps doit être en seconde
 ```
 
 ## Fonction `percentageNumber()`
@@ -108,6 +95,13 @@ console.log(replaceMention("Un texte d'exemple ?!! @here")); // remplace la ment
 const { percentageNumber } = require("nazma.js");
 	
 console.log(percentageNumber(20, 50)); // string non obligatoire
+```
+
+## Fonction `textFormat()`
+```js
+const { textFormat } = require("nazma.js");
+	
+console.log(textFormat("Un texte d'exemple ?!!"));
 ```
 
 ## Fonction `reducNumber()`
@@ -138,54 +132,43 @@ console.log(checkPerm({
 })); // sortie : true ( possède la permission ) / false ( ne possède pas la permission )
 ```
 
-## Fonction `mentionChannel()`
-```js
-const { mentionChannel } = require("nazma.js");
-	
-console.log(mentionChannel(channelId));
-```
-
-## Fonction `mentionRole()`
-```js
-const { mentionRole } = require("nazma.js");
-	
-console.log(mentionRole(roleId));
-```
-
-## Fonction `mentionTextRole()`
-```js
-const { mentionTextRole } = require("nazma.js");
-	
-console.log(mentionTextRole(roleId, "Un texte d'example ?!!"));
-```
-
-## Fonction `mentionUser()`
-```js
-const { mentionUser } = require("nazma.js");
-	
-console.log(mentionUser(userId));
-```
-
-## Fonction `mentionTextUser()`
-```js
-const { mentionTextUser } = require("nazma.js");
-	
-console.log(mentionTextUser(userId, "Un texte d'example ?!!"));
-```
-
 ## Fonction `mysql()`
 ```js
 const { mysql } = require("nazma.js");
 	
-console.log(mysql(host, user, password, database, charset, connexion));
+const db = mysql(options); // doit être obligatoirement un type "object"
+
+/*
+
+exemple du options :
+
+	options = {
+
+		host: "",
+
+		user: "",
+
+		password: "",
+
+		database: "",
+
+		idView: true,
+
+		charset: "utf8mb4_bin",
+
+		multipleStatements: true,
+
+		connectionLimit: 10
+
+	}
+
+*/
+
+db.query(...);
 ```
 
 # Liens
 
-- [Nazma](https://nazmabot.fr)
+- Nazma n'est plus fonctionnel, retrouvez moi en live sur [Twitch](https://www.twitch.tv/thebigwolfy_)
 
-- [Nazma Invite](https://nazmabot.fr/invite)
-
-- [Nazma Support](https://nazmabot.fr/support)
-
-- [NazmaJS github](https://github.com/thebigwolfy/nazma.js)
+- [NazmaJS github](https://www.github.com/thebigwolfy/nazma.js)
