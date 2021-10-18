@@ -1,6 +1,6 @@
 "use strict";
 
-const { checkNumber } = require("../interne.js");
+const { checkNumber } = require("./checkNumber.js");
 
 // Exportation de la fonction reducNumber
 
