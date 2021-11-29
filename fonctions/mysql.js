@@ -14,9 +14,9 @@ module.exports = (options) => {
 		
 		user: options.user,
 		
-		password : options.password,
+		password: options.password,
 		
-		database : options.database,
+		database: options.database,
 		
 		charset: options.charset ? options.charset : "utf8mb4_bin",
 		
@@ -73,7 +73,7 @@ module.exports = (options) => {
 			
 			connection.release();
 			
-			return console.log(`NazmaJS - Mysql - La connexion est correctement établie ${options.idView ? "( id : ${connection.threadId} ) " : ""}!`);
+			return console.log(`NazmaJS - Mysql - La connexion est correctement établie ${options.idView ? ("( id : " + connection.threadId + " ) ") : ""}!`);
 		
 		}
 		
@@ -83,9 +83,7 @@ module.exports = (options) => {
 		
 };
 
-function check(options) {
-
-	if(!options) options = {};
+function check(options = {}) {
 
 	if(!options.host || typeof Number(options.host) !== "number") throw new Error("NazmaJS - Veuillez indiquer une IP du serveur SQL !");
 

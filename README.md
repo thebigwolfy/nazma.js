@@ -14,7 +14,7 @@ const { checkBot } = require("nazma.js");
 
 client.on("messageCreate", (message) => {
 
-	checkBot(message).then((checkBot) => { // permissions vérifier : "SEND_MESSAGES" et "EMBED_LINKS"
+	checkBot(message, options).then((checkBot) => { // permissions vérifier : "SEND_MESSAGES" et "EMBED_LINKS"
 	
 		if(checkBot) "Posséde les permissions / bot ingoré.";
 		
@@ -29,6 +29,24 @@ client.on("messageCreate", (message) => {
 	// cette fonction vérifie si un bot met un message, il l'ignore
 	
 });
+
+/*
+
+exemple du options :
+
+	options = {
+
+		replyUser: false, // si les messages de type 'REPLY' sont ingoré ou pas
+
+		bot: true, // si les bots sont ignoré ou non
+
+		perms: [
+			"SEND_MESSAGES"
+		] // non obligatoire si vous souhaitez pas vérifier de permissions
+
+	}
+
+*/
 ```
 
 ## Fonction `antiLinks()`
@@ -37,28 +55,12 @@ const { antiLinks } = require("nazma.js");
 
 client.on("messageCreate", (message) => {
 
-	antiLinks(message, {
-				
-		only: true, // activation ( true ou false )
-		
-		//links: [ "monsite.fr" ], // vos liens en plus de celle par défaut, fonctionnel avec une base de données, non obligatoire
-		
-		user: {
-		
-			id: message.author.id,
-			
-			perm: "MANAGE_MESSAGES" // mettez la permission souhaitez 
-		
-		}, // vérification de la permission indiquer a l'utilisateur indiquer
-				
-		//messageDelete: false // supprimer le message de l'utilisateur ( true ou false ), par défaut c'est false
-		
-	}).then((insultes) => {
+	antiLinks(message, options).then((insultes) => {
 	
 		if(insultes) "La personne a mit un lien.";
 		
 		else "La personne a pas mit de lien.";
-	
+ 
 	}).catch((err) => {
 	
 		console.error(err); // erreur
@@ -66,6 +68,30 @@ client.on("messageCreate", (message) => {
 	});
 	
 });
+
+/*
+
+exemple du options :
+
+	options = {
+
+		only: true, // activation ( true ou false ), pour système automatique
+		
+		links: [ "monsite.fr" ], // vos liens en plus de celle par défaut, fonctionnel avec une base de données, non obligatoire
+		
+		user: {
+		
+			id: message.author.id,
+			
+			perm: "MANAGE_MESSAGES" // mettez la permission souhaiter
+		
+		}, // vérification de la permission indiquer a l'utilisateur indiquer
+				
+		messageDelete: false // supprimer le message de l'utilisateur ( true ou false )
+
+	}
+
+*/
 ```
 
 ## Fonction `progressBar()`
@@ -95,13 +121,6 @@ console.log(timeFormat("30")); // le temps doit être en seconde
 const { percentageNumber } = require("nazma.js");
 	
 console.log(percentageNumber(20, 50)); // string non obligatoire
-```
-
-## Fonction `textFormat()`
-```js
-const { textFormat } = require("nazma.js");
-	
-console.log(textFormat("Un texte d'exemple ?!!"));
 ```
 
 ## Fonction `reducNumber()`
@@ -169,6 +188,6 @@ db.query(...);
 
 # Liens
 
-- Nazma n'est plus fonctionnel, retrouvez moi en live sur [Twitch](https://www.twitch.tv/thebigwolfy_)
+- Nazma n'est plus fonctionnel mais WolfyTools oui, retrouvez le créateur en live sur [Twitch](https://www.twitch.tv/thebigwolfy_) !
 
-- [NazmaJS github](https://www.github.com/thebigwolfy/nazma.js)
+- Le [github](https://www.github.com/thebigwolfy/nazma.js) du package.
