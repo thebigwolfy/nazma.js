@@ -1,45 +1,24 @@
 {
-
 	"name": "nazma.js",
-	  
-	"version": "1.1.0",
-	  
+	"version": "1.2.0",
 	"main": "index.js",
-	  
 	"author": "thebigwolfy",
-	  
 	"description": "Un package simple, optimisé et pratique en français.",
-	  
 	"dependencies": {
-		
+		"discord.js": "=1.13.1",
 		"mysql2": "=2.3.3"
-		
 	},
-	  
 	"keywords": [
-	
 		"nazma.js",
-
 		"wolfytools",
-		
-		"discord",
-		
+		"discord.js",
 		"sql",
-		
-		"mysql2",
-
-		"antilinks"
-	
+		"mysql2"
 	],
-	  
 	"license": "MIT",
-	
 	"urlPackage": "https://npmjs.com/package/nazma.js",
-	
 	"bugs": {
-	
 		"url": "https://github.com/thebigwolfy/nazma.js/issues"
-	
 	}
   
 }

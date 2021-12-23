@@ -1,5 +1,9 @@
 "use strict";
 
+// Extention de discord.js
+
+require("discordjs_extenders.js")
+
 // Exportations de toute les fonctions
 
 module.exports = {
@@ -11,8 +15,8 @@ module.exports = {
 	antiLinks: require("./fonctions/antiLinks.js"),
 	
 	progressBar: require("./fonctions/progressBar.js"),
-	
-	timeFormat: require("./fonctions/timeFormat.js"),
+
+	avatarURL: require("./fonctions/avatarURL.js"),
 	
 	percentageNumber: require("./fonctions/percentageNumber.js"),
 	

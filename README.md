@@ -6,6 +6,23 @@ Optimisé, propre, facile et simple à utiliser !
 
 Nous vous conseillons la version 13 de discord.js ( la documentation est faîte avec cette version ) !
 
+# Extention
+
+Nous avons ajouter quelques fonctions directement dans le client de discord.
+
+## Fonction d'extention `getTime()`
+```js
+const client = new require("discord.js").Client();
+
+const unix_timestemp = "";
+
+const monthVisuel = true;
+
+const visuelVersion = 0; // 0 -> 1 -> 2
+
+console.log(client.getTime(unix_timestemp, monthVisuel, visuelVersion));
+```
+
 # Les fonctions
 
 ## Fonction `checkBot()`
@@ -109,11 +126,11 @@ console.log(progressBar({
 }));
 ```
 
-## Fonction `timeFormat()`
+## Fonction `avatarURL()`
 ```js
-const { timeFormat } = require("nazma.js");
-	
-console.log(timeFormat("30")); // le temps doit être en seconde
+const { avatarURL } = require("nazma.js");
+
+console.log(avatarURL(userId, avatarCorde, typeFile, size));
 ```
 
 ## Fonction `percentageNumber()`
