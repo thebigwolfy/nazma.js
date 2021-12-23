@@ -1,11 +1,12 @@
 {
 	"name": "nazma.js",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"main": "index.js",
 	"author": "thebigwolfy",
 	"description": "Un package simple, optimisé et pratique en français.",
 	"dependencies": {
 		"discord.js": "=1.13.1",
+		"fs": "^0.0.1-security",
 		"mysql2": "=2.3.3"
 	},
 	"keywords": [

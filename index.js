@@ -1,33 +1,29 @@
 "use strict";
 
+// Extractions des autres packages
+
+const { readdirSync } = require("fs");
+
+const { version } = require("./package.json");
+
 // Extention de discord.js
 
-require("discordjs_extenders.js")
+require("discordjs_extenders.js");
 
 // Exportations de toute les fonctions
 
-module.exports = {
+let fonctions = {
+	version
+};
 
-	// Les fonctions
+const files = readdirSync("./fonctions").filter(file => file.endsWith(".js"));
 
-	checkBot: require("./fonctions/checkBot.js"),
-	
-	antiLinks: require("./fonctions/antiLinks.js"),
-	
-	progressBar: require("./fonctions/progressBar.js"),
+for(const file of files) {
 
-	avatarURL: require("./fonctions/avatarURL.js"),
-	
-	percentageNumber: require("./fonctions/percentageNumber.js"),
-	
-	reducNumber: require("./fonctions/reducNumber.js"),
-	
-	checkPerm: require("./fonctions/checkPerm.js"),
-	
-	mysql: require("./fonctions/mysql.js"),
+	const fileExport = require(`./fonctions/${file}`);
 
-	// Version du package
-
-	version: require("./package.json").version
+	fonctions[String(file)] = fileExport;
 
 };
+
+module.exports = fonctions;
