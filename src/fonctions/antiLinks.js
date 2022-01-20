@@ -1,6 +1,6 @@
 "use strict";
 
-const checkPerm = require("./checkPerm.js");
+const { Permissions } = require("discord.js");
 
 // Exportation de la fonction antiLinks
 
@@ -8,11 +8,13 @@ module.exports = (message, options) => {
 	
 	return new Promise((resolve, reject) => {
 		
-		if(!options.only) options.only = true;
+		if(!options.only || options.only !== true && options.only !== false) options.only = true;
+
+		if(!options.messageDelete || options.messageDelete !== true && options.messageDelete !== false) options.messageDelete = false;
 	
-		if(!options.links) options.links = null;
+		if(!options.links || typeof options.links !== "array" && options.links !== null) options.links = null;
 		
-		if(!options.user || typeof options.user !== "object" || !options.user.id || !options.user.perm || typeof options.user.perm !== "string") throw new Error("Vous devez obligatoirement inclure l'identifiant et la permission de l'utilisateur !");
+		if(!options.user || typeof options.user !== "object" || !options.user.id || !options.user.perm || typeof options.user.perm !== "string") reject("Vous devez obligatoirement inclure l'identifiant et la permission de l'utilisateur !");
 		
 		if(!message || typeof message !== "object") reject("Veuillez indiquer l'object du message à vérifier !");
 
@@ -58,25 +60,9 @@ module.exports = (message, options) => {
 
 		}
 
-		if(options.only && !checkPerm({
-			
-			guild: message.guild,
-			
-			userId: options.user.id,
-			
-			perm: options.user.perm
-			
-		}) && foundLink) {
+		if(options.only && !message.guild.members.cache.get(options.user.id).permissions.has(Permissions.FLAGS["MANAGE_MESSAGES"]) && foundLink) {
 		
-			if(options.messageDelete && options.messageDelete === true ? checkPerm({
-			
-				guild: message.guild,
-				
-				userId: message.guild.me.id,
-				
-				perm: "MANAGE_MESSAGES"
-				
-			}) : false) message.delete().catch(() => {
+			if(options.messageDelete ? message.guild.me.permissions.has(Permissions.FLAGS["MANAGE_MESSAGES"]) : false) message.delete().catch(() => {
 				
 				return;
 			

@@ -16,15 +16,13 @@ module.exports = (message, options) => {
 
 		try{
 
-			if(!message || !message.guild || options.replyUser && message.type === "REPLY" || options.bot && message.author.bot) resolve(false);
+			if(!message || !message.guild || (options.replyUser && message.type === "REPLY") || (options.bot && message.author.bot)) resolve(false);
 
 			if(options.perms.length >= 1) for(let i; i > options.perms.length; i++) {
 
 				if(!message.guild.me.permissions.has(Permissions.FLAGS[options.perms[i]])) resolve(false);
 
-			}
-
-			resolve(true);
+			} else resolve(true);
 
 		} catch(e) {
 			
