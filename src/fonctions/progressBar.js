@@ -2,7 +2,7 @@
 
 // Exportation de la fonction progressBar
 
-module.exports = (options) => {
+module.exports = (options = {}) => {
 	
 	let size = 0,
 		

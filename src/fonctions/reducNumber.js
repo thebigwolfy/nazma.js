@@ -4,7 +4,7 @@ const { checkNumber } = require("./checkNumber.js");
 
 // Exportation de la fonction reducNumber
 
-module.exports = (options) => {
+module.exports = (options = {}) => {
 	
 	if(!options.number) options.number = 0;
 	

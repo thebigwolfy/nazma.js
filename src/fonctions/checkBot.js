@@ -4,7 +4,7 @@ const { Permissions } = require("discord.js");
 
 // Exportation de la fonction checkBot
 
-module.exports = (message, options) => {
+module.exports = (message, options = {}) => {
 
 	if(!options.replyUser) options.replyUser = false;
 
