@@ -18,7 +18,7 @@ const unix_timestemp = "";
 
 const monthVisuel = true;
 
-const visuelVersion = 0; // 0 -> 1 -> 2
+const visuelVersion = 0; // 0 -> 1 -> 2 -> 3
 
 console.log(client.getTime(unix_timestemp, monthVisuel, visuelVersion));
 ```

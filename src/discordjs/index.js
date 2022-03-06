@@ -24,15 +24,13 @@ Client.prototype.getTime = function(unix_timestamp, month = true, full = 0) {
 
     const secs = date.getSeconds();
 
-    return String(full === 0 ? `${day} ${months} ${years}` : (full === 1 ? `${day} ${months} ${years} à ${hours}:${mins}` : (full >= 3 ? `${day} ${months} ${years}  à ${hours}:${mins}:${secs}` : "")));
+    return String(full === 0 ? `${day} ${months} ${years}` : (full === 1 ? `${day} ${months} ${years} à ${hours}:${mins}` : (full === 2 ? `${day} ${months} ${years} à ${hours}:${mins}:${secs}` : (full >= 3 ? `${hours}:${mins}:${secs}` : ""))));
 
 };
 
 // GuildMember
 
-GuildMember.prototype.permission = function(permission) {
-
-    if(!permission) return undefined;
+GuildMember.prototype.permission = function(permission = "MANAGE_MESSAGES") {
 
     return this.permissions.has(permission);
 
