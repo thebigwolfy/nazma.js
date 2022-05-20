@@ -11,7 +11,7 @@ exports.antiLinks = require("./fonctions/antiLinks.js");
 exports.progressBar = require("./fonctions/progressBar.js");
 exports.percentageNumber = require("./fonctions/percentageNumber.js");
 exports.reducNumber = require("./fonctions/reducNumber.js");
-exports.mysql = require("./fonctions/mysql.js");
+exports.mysql = require("./fonctions/mysql/index.js");
 
 // Autres
 
